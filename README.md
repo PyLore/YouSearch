@@ -1,6 +1,6 @@
 # YouSearch - By Lore<3
 
-### A python module that scrapes any youtube search.
+### A python module that scrapes any youtube search. (Can be used for any project, IF NEEDED)
 
 ## ❓ How does it work?:
 Nothing complicated, just scrapes youtube and parses out the videos.
