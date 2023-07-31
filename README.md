@@ -4,15 +4,6 @@
 
 ## ❓ How does it work?:
 Nothing complicated, just scrapes youtube and parses out the videos.
-
-Each entry contains(
-  video title, 
-  video author, 
-  video url,
-  video length,
-  video views,
-  channel url
-)
 ## Each entry contains:
 ```bash
 - video title, 
