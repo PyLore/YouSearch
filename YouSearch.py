@@ -38,26 +38,21 @@ class YouSearch(Session):
         
         # NOTE: Search for all data for each video (title, views, author/channel, etc...)
         for video in findall(r'"title":{"runs":(.*?),"params":"', resp):
-            title:  str
-            author: str
-            try:
-                # NOTE: Parse the title and author.
-                title, author = findall(r'{"text":"(.*?)"', video)
+            # NOTE: If title and author not found skip.
+            if len(info := findall(r'{"text":"(.*?)"', video)) == 2:
                 
                 # NOTE: Cache these 2 values.
-                video_id:    str = findall(r'{"videoId":"(.*?)"', video)[0]
-                channel_tag: str = findall(r'"canonicalBaseUrl":"/(.*?)"', video)[0]
+                video_id:    str = ''.join(findall(r'{"videoId":"(.*?)"', video))
+                channel_tag: str = ''.join(findall(r'"canonicalBaseUrl":"/(.*?)"', video))
 
                 self.results.append({
-                    'title'      : title,
-                    'author'     : author,
+                    'title'      : info[0],
+                    'author'     : info[1],
                     'video_url'  : f'https://www.youtube.com/watch?v={video_id}',
-                    'length'     : findall(r'"lengthText":{"accessibility":{"accessibilityData":{"label":"(.*?)"', video)[0],
-                    'views'      : findall(r'"viewCountText":{"simpleText":"(.*?)"', video)[0],
+                    'length'     : ''.join(findall(r'"lengthText":{"accessibility":{"accessibilityData":{"label":"(.*?)"', video)),
+                    'views'      : ''.join(findall(r'"viewCountText":{"simpleText":"(.*?)"', video)),
                     'channel_url': f'https://www.youtube.com/{channel_tag}'
                 })
-            except:
-                continue 
 
 
 '''
